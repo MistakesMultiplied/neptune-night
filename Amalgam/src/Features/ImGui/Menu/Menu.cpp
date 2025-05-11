@@ -1582,18 +1582,7 @@ void CMenu::MenuMisc(int iTab)
 					FToggle(Vars::Misc::Automation::AcceptItemDrops, FToggleEnum::Right);
 					FToggle(Vars::Misc::Automation::AutoF2Ignored, FToggleEnum::Left);
 					FToggle(Vars::Misc::Automation::AutoF1Priority, FToggleEnum::Right);
-					FToggle(Vars::Misc::Automation::RandomVotekick, FToggleEnum::Left);
-					FToggle(Vars::Misc::Automation::ChatSpam::Enable, FToggleEnum::Right);
-					FToggle(Vars::Misc::Automation::AutoReport, FToggleEnum::Left);
-					PushTransparent(!Vars::Misc::Automation::ChatSpam::Enable.Value);
-					{
-						FSlider(Vars::Misc::Automation::ChatSpam::Interval, FSliderEnum::Left | FSliderEnum::Clamp);
-						FToggle(Vars::Misc::Automation::ChatSpam::TeamChat, FToggleEnum::Right);
-						FToggle(Vars::Misc::Automation::ChatSpam::Randomize, FToggleEnum::Left);
-					}
-					PopTransparent();
-					FToggle(Vars::Misc::Automation::NoiseSpam, FToggleEnum::Left);
-					FDropdown(Vars::Misc::Automation::VoiceCommandSpam);
+					FToggle(Vars::Misc::Automation::RandomVotekick, FToggleEnum::Left);;
 				} EndSection();
 			}
 
@@ -1623,21 +1612,19 @@ void CMenu::MenuMisc(int iTab)
 						FToggle(Vars::Misc::Game::AntiCheatCritHack);
 					} EndSection();
 				}
-				if (Section("Queueing"))
+				if (Section("Spam", 8))
 				{
-					FDropdown(Vars::Misc::Queueing::ForceRegions);
-					FToggle(Vars::Misc::Queueing::FreezeQueue, FToggleEnum::Left);
-					FToggle(Vars::Misc::Queueing::AutoCasualQueue, FToggleEnum::Right);
-					FSlider(Vars::Misc::Queueing::QueueDelay, FSliderEnum::None);
-					FToggle(Vars::Misc::Queueing::RQif, FToggleEnum::Left);
-					PushTransparent(!FGet(Vars::Misc::Queueing::RQif));
+					FToggle(Vars::Misc::Automation::ChatSpam::Enable, FToggleEnum::Left);
+					PushTransparent(!Vars::Misc::Automation::ChatSpam::Enable.Value);
 					{
-						FSlider(Vars::Misc::Queueing::RQplt);
-						FToggle(Vars::Misc::Queueing::RQkick, FToggleEnum::Left);
-						FToggle(Vars::Misc::Queueing::RQLTM, FToggleEnum::Right);
-						FToggle(Vars::Misc::Queueing::RQIgnoreFriends, FToggleEnum::Left);
+						FSlider(Vars::Misc::Automation::ChatSpam::Interval, FSliderEnum::Left | FSliderEnum::Clamp);
+						FToggle(Vars::Misc::Automation::ChatSpam::TeamChat, FToggleEnum::Right);
+						FToggle(Vars::Misc::Automation::ChatSpam::Randomize, FToggleEnum::Left);
 					}
 					PopTransparent();
+					FToggle(Vars::Misc::Automation::NoiseSpam, FToggleEnum::Left);
+					FToggle(Vars::Misc::Automation::AutoReport, FToggleEnum::Right);
+					FDropdown(Vars::Misc::Automation::VoiceCommandSpam);
 				} EndSection();
 				if (Section("Mann vs. Machine", 8))
 				{
@@ -4363,6 +4350,22 @@ void CMenu::MenuNavEng(int iTab)
 						FTooltip("should double the performance of the movesim method by only checking every 2nd tick");
 					} EndSection();
 				}
+				if (Section("Queueing"))
+				{
+					FDropdown(Vars::Misc::Queueing::ForceRegions);
+					FToggle(Vars::Misc::Queueing::FreezeQueue, FToggleEnum::Left);
+					FToggle(Vars::Misc::Queueing::AutoCasualQueue, FToggleEnum::Right);
+					FSlider(Vars::Misc::Queueing::QueueDelay, FSliderEnum::None);
+					FToggle(Vars::Misc::Queueing::RQif, FToggleEnum::Left);
+					PushTransparent(!FGet(Vars::Misc::Queueing::RQif));
+					{
+						FSlider(Vars::Misc::Queueing::RQplt);
+						FToggle(Vars::Misc::Queueing::RQkick, FToggleEnum::Left);
+						FToggle(Vars::Misc::Queueing::RQLTM, FToggleEnum::Right);
+						FToggle(Vars::Misc::Queueing::RQIgnoreFriends, FToggleEnum::Left);
+					}
+					PopTransparent();
+				} EndSection();
 			}
 			EndTable();
 		}
