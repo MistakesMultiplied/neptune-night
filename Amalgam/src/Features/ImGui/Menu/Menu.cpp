@@ -1593,8 +1593,9 @@ void CMenu::MenuMisc(int iTab)
 				{
 					FDropdown(Vars::Misc::Sound::Block);
 					FToggle(Vars::Misc::Sound::HitsoundAlways, FToggleEnum::Left);
-					FToggle(Vars::Misc::Sound::RemoveDSP, FToggleEnum::Right);
-					FToggle(Vars::Misc::Sound::GiantWeaponSounds);
+					FDropdown(Vars::Misc::Sound::HitsoundType, FDropdownEnum::Right);
+					FToggle(Vars::Misc::Sound::RemoveDSP, FToggleEnum::Left);
+					FToggle(Vars::Misc::Sound::GiantWeaponSounds, FToggleEnum::Right);
 				} EndSection();
 				if (Section("Game", true))
 				{

@@ -1058,6 +1058,10 @@ namespace Vars
 				VA_LIST("Footsteps", "Noisemaker", "Frying pan", "Water"),
 				Footsteps = 1 << 0, Noisemaker = 1 << 1, FryingPan = 1 << 2, Water = 1 << 3);
 			CVar(HitsoundAlways, "Hitsound always", false);
+			CVarEnum(HitsoundType, "Hitsound type", 0, NONE, nullptr,
+				VA_LIST("Default", "Bonk", "COD", "Quake", "Moan"),
+				Default, Bonk, COD, Quake, Moan);
+			CVar(HitsoundVolume, "Hitsound volume", 1.0f, SLIDER_CLAMP, 0.0f, 1.0f, 0.1f);
 			CVar(RemoveDSP, "Remove DSP", false);
 			CVar(GiantWeaponSounds, "Giant weapon sounds", false);
 		SUBNAMESPACE_END(Sound);
