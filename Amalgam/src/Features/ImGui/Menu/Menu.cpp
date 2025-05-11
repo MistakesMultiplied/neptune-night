@@ -548,7 +548,6 @@ void CMenu::MenuAimbot(int iTab)
 				} EndSection();
 				if (Section("Cheater Detection"))
 				{
-					FToggle(Vars::CheaterDetection::AutoIgnoreThai);
 					PushTransparent(!FGet(Vars::CheaterDetection::Methods));
 					{
 						FDropdown(Vars::CheaterDetection::Methods);
@@ -1583,6 +1582,7 @@ void CMenu::MenuMisc(int iTab)
 					FToggle(Vars::Misc::Automation::AutoF2Ignored, FToggleEnum::Left);
 					FToggle(Vars::Misc::Automation::AutoF1Priority, FToggleEnum::Right);
 					FToggle(Vars::Misc::Automation::RandomVotekick, FToggleEnum::Left);;
+					FToggle(Vars::CheaterDetection::AutoIgnoreThai, FToggleEnum::Right);
 				} EndSection();
 			}
 
@@ -4264,7 +4264,6 @@ void CMenu::MenuNavEng(int iTab)
 				{
 					if (Section("##Debug Nav engine"))
 					{
-						FToggle(Vars::NavEng::NavEngine::SafePathing);
 						FSlider(Vars::NavEng::NavEngine::StickyIgnoreTime, FSliderEnum::Left);
 						FSlider(Vars::NavEng::NavEngine::StuckDetectTime, FSliderEnum::Right);
 						FSlider(Vars::NavEng::NavEngine::StuckBlacklistTime, FSliderEnum::Left);
