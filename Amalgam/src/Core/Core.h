@@ -11,10 +11,12 @@ public:
 	void Loop();
 	void Unload();
 
+	const char* SearchForDLL(const char* pszDLLSearch);
 	void AppendFailText(const char* sMessage);
+	void LogFailText();
 
 	bool m_bUnload = false;
-	
+
 private:
 	bool m_bFailed = false;
 	bool m_bFailed2 = false;

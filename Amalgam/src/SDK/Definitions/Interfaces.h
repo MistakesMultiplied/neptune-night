@@ -17,6 +17,7 @@
 #include "Interfaces/IGameMovement.h"
 #include "Interfaces/IInput.h"
 #include "Interfaces/IInputSystem.h"
+#include "Interfaces/IKeyValuesSystem.h"
 #include "Interfaces/IMaterialSystem.h"
 #include "Interfaces/IMatSystemSurface.h"
 #include "Interfaces/IMoveHelper.h"
@@ -33,6 +34,7 @@
 #include "Interfaces/ViewRenderBeams.h"
 #include "Interfaces/VPhysics.h"
 #include "Interfaces/CServerTools.h"
+#include "Interfaces/CTFInventoryManager.h"
 
 #ifndef TEXTMODE
 #include <d3d9.h>
@@ -43,6 +45,7 @@ class CNullInterfaces
 {
 private:
 	bool m_bFailed = false;
+
 public:
 	bool Initialize();
 };

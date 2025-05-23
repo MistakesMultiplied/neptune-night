@@ -16,9 +16,12 @@ class CMisc
 	void VoiceCommandSpam(CTFPlayer* pLocal);
 	void RandomVotekick(CTFPlayer* pLocal);
 	void ChatSpam(CTFPlayer* pLocal);
+	void KillSay(int victim);
+	void AutoReply(int speaker, const char* text);
+	void VotekickResponse(int target);
+	std::string ProcessTextReplacements(std::string text);
 
 	void CheatsBypass();
-	void PingReducer();
 	void WeaponSway();
 	void AutoReport();
 
@@ -33,8 +36,12 @@ class CMisc
 	//bool bSteamCleared = false;
 
 	std::vector<std::string> m_vChatSpamLines;
+	std::vector<std::string> m_vKillSayLines;
+	std::vector<std::string> m_vAutoReplyLines;
 	Timer m_tChatSpamTimer;
 	int m_iCurrentChatSpamIndex = 0;
+	int m_iLastKilledPlayer = 0;
+	std::string m_sLastKilledPlayerName;
 
 public:
 	void RunPre(CTFPlayer* pLocal, CUserCmd* pCmd);
@@ -43,6 +50,7 @@ public:
 	void Event(IGameEvent* pEvent, uint32_t uNameHash);
 	int AntiBackstab(CTFPlayer* pLocal, CUserCmd* pCmd, bool bSendPacket);
 
+	void PingReducer();
 	void UnlockAchievements();
 	void LockAchievements();
 	bool SteamRPC();

@@ -5,6 +5,8 @@
 #include "../NavBot/NavEngine/NavEngine.h"
 #include "../Configs/Configs.h"
 #include "../Players/PlayerUtils.h"
+#include "../Misc/AutoItem/AutoItem.h"
+#include "../Misc/Misc.h"
 #include <utility>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -138,9 +140,9 @@ void CCommands::Initialize()
 
 	Register("cat_ignore", [](const std::deque<std::string>& vArgs)
 		{
-			if (vArgs.size() < 2)
+			if (vArgs.empty())
 			{
-				SDK::Output("Usage:\n\tcat_ignore <id32> <tag>");
+				SDK::Output("Usage:\n\tcat_ignore <id32>");
 				return;
 			}
 
@@ -161,30 +163,16 @@ void CCommands::Initialize()
 				return;
 			}
 
-			const std::string& sTag = vArgs[1];
-			int iTagID = F::PlayerUtils.GetTag(sTag);
-			if (iTagID == -1)
-			{
-				SDK::Output(std::format("Invalid tag: {}", sTag).c_str());
-				return;
-			}
-
-			auto pTag = F::PlayerUtils.GetTag(iTagID);
-			if (!pTag || !pTag->m_bAssignable)
-			{
-				SDK::Output(std::format("Tag {} is not assignable", sTag).c_str());
-				return;
-			}
-
+			int iTagID = F::PlayerUtils.TagToIndex(IGNORED_TAG);
+			
 			if (F::PlayerUtils.HasTag(uFriendsID, iTagID))
 			{
-				F::PlayerUtils.RemoveTag(uFriendsID, iTagID, true);
-				SDK::Output(std::format("Removed tag {} from ID32 {}", sTag, uFriendsID).c_str());
+				return;
 			}
 			else
 			{
 				F::PlayerUtils.AddTag(uFriendsID, iTagID, true);
-				SDK::Output(std::format("Added tag {} to ID32 {}", sTag, uFriendsID).c_str());
+				SDK::Output(std::format("Added player {} to ignore list", uFriendsID).c_str());
 			}
 		});
 
@@ -200,5 +188,32 @@ void CCommands::Initialize()
 				Vars::Debug::CrashLogging.Value = false; // we are voluntarily crashing, don't give out log if we don't want one
 			}
 			reinterpret_cast<void(*)()>(0)();
+		});
+
+	Register("cat_rent_item", [](const std::deque<std::string>& vArgs)
+		{
+			if (vArgs.size() != 1)
+			{
+				SDK::Output("Usage:\n\tcat_rent_item <item_def_index>");
+				return;
+			}
+
+			item_definition_index_t iDefIdx;
+			try
+			{
+				iDefIdx = atoi(vArgs[0].c_str());
+			}
+			catch (const std::invalid_argument&)
+			{
+				SDK::Output("Invalid item_def_index");
+				return;
+			}
+
+			F::AutoItem.Rent(iDefIdx);
+		});
+
+	Register("cat_achievement_unlock", [](const std::deque<std::string>& vArgs)
+		{
+			F::Misc.UnlockAchievements();
 		});
 }
